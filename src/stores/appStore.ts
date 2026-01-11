@@ -1,13 +1,15 @@
 import { create } from 'zustand'
 import { db } from '@/db'
-import type { ThoughtRecord, DepressionChecklistEntry } from '@/types'
+import type { ThoughtRecord, DepressionChecklistEntry, GratitudeEntry } from '@/types'
 
 interface AppState {
   thoughtRecords: ThoughtRecord[]
   depressionChecklists: DepressionChecklistEntry[]
+  gratitudeEntries: GratitudeEntry[]
   isLoading: boolean
-  currentView: 'home' | 'new-thought' | 'thought-detail' | 'checklist' | 'new-checklist' | 'insights' | 'settings'
+  currentView: 'home' | 'new-thought' | 'thought-detail' | 'checklist' | 'new-checklist' | 'gratitude' | 'new-gratitude' | 'insights' | 'settings'
   selectedRecordId: string | null
+  selectedGratitudeId: string | null
 
   loadData: () => Promise<void>
   addThoughtRecord: (record: ThoughtRecord) => Promise<void>
@@ -15,26 +17,33 @@ interface AppState {
   deleteThoughtRecord: (id: string) => Promise<void>
   addDepressionChecklist: (entry: DepressionChecklistEntry) => Promise<void>
   deleteDepressionChecklist: (id: string) => Promise<void>
+  addGratitudeEntry: (entry: GratitudeEntry) => Promise<void>
+  updateGratitudeEntry: (entry: GratitudeEntry) => Promise<void>
+  deleteGratitudeEntry: (id: string) => Promise<void>
   setView: (view: AppState['currentView']) => void
   setSelectedRecordId: (id: string | null) => void
+  setSelectedGratitudeId: (id: string | null) => void
   exportData: () => Promise<string>
-  importData: (jsonString: string) => Promise<void>
+  importData: (jsonString: string, mode?: 'merge' | 'replace') => Promise<void>
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
   thoughtRecords: [],
   depressionChecklists: [],
+  gratitudeEntries: [],
   isLoading: true,
   currentView: 'home',
   selectedRecordId: null,
+  selectedGratitudeId: null,
 
   loadData: async () => {
     set({ isLoading: true })
-    const [thoughtRecords, depressionChecklists] = await Promise.all([
+    const [thoughtRecords, depressionChecklists, gratitudeEntries] = await Promise.all([
       db.getAllThoughtRecords(),
-      db.getAllDepressionChecklists()
+      db.getAllDepressionChecklists(),
+      db.getAllGratitudeEntries()
     ])
-    set({ thoughtRecords, depressionChecklists, isLoading: false })
+    set({ thoughtRecords, depressionChecklists, gratitudeEntries, isLoading: false })
   },
 
   addThoughtRecord: async (record) => {
@@ -72,18 +81,41 @@ export const useAppStore = create<AppState>((set, get) => ({
     }))
   },
 
+  addGratitudeEntry: async (entry) => {
+    await db.addGratitudeEntry(entry)
+    set((state) => ({
+      gratitudeEntries: [entry, ...state.gratitudeEntries]
+    }))
+  },
+
+  updateGratitudeEntry: async (entry) => {
+    await db.updateGratitudeEntry(entry)
+    set((state) => ({
+      gratitudeEntries: state.gratitudeEntries.map((e) => (e.id === entry.id ? entry : e))
+    }))
+  },
+
+  deleteGratitudeEntry: async (id) => {
+    await db.deleteGratitudeEntry(id)
+    set((state) => ({
+      gratitudeEntries: state.gratitudeEntries.filter((e) => e.id !== id)
+    }))
+  },
+
   setView: (view) => set({ currentView: view }),
 
   setSelectedRecordId: (id) => set({ selectedRecordId: id }),
+
+  setSelectedGratitudeId: (id) => set({ selectedGratitudeId: id }),
 
   exportData: async () => {
     const data = await db.exportData()
     return JSON.stringify(data, null, 2)
   },
 
-  importData: async (jsonString) => {
+  importData: async (jsonString, mode: 'merge' | 'replace' = 'merge') => {
     const data = JSON.parse(jsonString)
-    await db.importData(data)
+    await db.importData(data, mode)
     await get().loadData()
   }
 }))
