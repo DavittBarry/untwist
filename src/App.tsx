@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useAppStore } from '@/stores/appStore'
+import { useThemeStore } from '@/stores/themeStore'
 import { Navigation } from '@/components/Navigation'
 import { HomeView } from '@/components/HomeView'
 import { ThoughtRecordForm } from '@/components/ThoughtRecordForm'
@@ -17,6 +18,11 @@ import { logger } from '@/utils/logger'
 
 function App() {
   const { currentView, isLoading, loadData, selectedRecordId, thoughtRecords, selectedChecklistId } = useAppStore()
+  const initTheme = useThemeStore((state) => state.initTheme)
+
+  useEffect(() => {
+    initTheme()
+  }, [initTheme])
 
   useEffect(() => {
     logger.debug('App', 'Loading initial data')
@@ -27,8 +33,8 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-warm-100 flex items-center justify-center">
-        <div className="text-stone-400">Loading...</div>
+      <div className="min-h-screen bg-warm-100 dark:bg-stone-900 flex items-center justify-center">
+        <div className="text-stone-400 dark:text-stone-500">Loading...</div>
       </div>
     )
   }
@@ -66,10 +72,9 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-warm-100 text-stone-800">
+      <div className="min-h-screen bg-warm-100 dark:bg-stone-900 text-stone-800 dark:text-stone-100">
         <Navigation />
         
-        {/* Main content area with responsive margins */}
         <main className="
           pb-24 lg:pb-8
           lg:ml-64

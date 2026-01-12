@@ -124,8 +124,8 @@ export function HomeView() {
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="card p-6 max-w-sm w-full">
-            <h3 className="text-lg font-semibold text-stone-800 mb-2">Delete this record?</h3>
-            <p className="text-stone-500 text-sm mb-5">This action cannot be undone.</p>
+            <h3 className="text-lg font-semibold text-stone-800 dark:text-stone-100 mb-2">Delete this record?</h3>
+            <p className="text-stone-500 dark:text-stone-400 text-sm mb-5">This action cannot be undone.</p>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowDeleteConfirm(null)}
@@ -146,29 +146,29 @@ export function HomeView() {
 
       {thoughtRecords.length === 0 ? (
         <div className="text-center py-16">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-sage-100 flex items-center justify-center">
-            <svg className="w-8 h-8 text-sage-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-sage-100 dark:bg-sage-900/30 flex items-center justify-center">
+            <svg className="w-8 h-8 text-sage-400 dark:text-sage-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
               <polyline points="14,2 14,8 20,8" />
             </svg>
           </div>
-          <p className="text-stone-500 mb-4">No thought records yet</p>
+          <p className="text-stone-500 dark:text-stone-400 mb-4">No thought records yet</p>
           <button
             onClick={() => {
               setSelectedRecordId(null)
               setView('new-thought')
             }}
-            className="text-sage-600 hover:text-sage-700 font-medium"
+            className="text-sage-600 dark:text-sage-400 hover:text-sage-700 dark:hover:text-sage-300 font-medium"
           >
             Create your first record
           </button>
         </div>
       ) : filteredRecords.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-stone-500">No records match your search</p>
+          <p className="text-stone-500 dark:text-stone-400">No records match your search</p>
           <button
             onClick={() => { setSearchQuery(''); setTimeFilter('all'); }}
-            className="text-sage-600 hover:text-sage-700 font-medium mt-2"
+            className="text-sage-600 dark:text-sage-400 hover:text-sage-700 dark:hover:text-sage-300 font-medium mt-2"
           >
             Clear filters
           </button>
@@ -191,7 +191,7 @@ export function HomeView() {
               <div
                 key={record.id}
                 className={`card overflow-hidden transition-all duration-300 ${
-                  isExpanded ? 'shadow-soft-lg md:col-span-2' : 'hover:shadow-soft-lg'
+                  isExpanded ? 'shadow-soft-lg dark:shadow-soft-lg-dark md:col-span-2' : 'hover:shadow-soft-lg dark:hover:shadow-soft-lg-dark'
                 }`}
               >
                 <button
@@ -199,11 +199,11 @@ export function HomeView() {
                   className="w-full text-left p-5 focus:ring-0 focus:ring-offset-0"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <div className="text-sm text-stone-400">
+                    <div className="text-sm text-stone-400 dark:text-stone-500">
                       {format(parseISO(record.date), 'MMM d, yyyy')}
                     </div>
                     <svg 
-                      className={`w-5 h-5 text-stone-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 text-stone-400 dark:text-stone-500 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
                       viewBox="0 0 24 24" 
                       fill="none" 
                       stroke="currentColor" 
@@ -213,33 +213,33 @@ export function HomeView() {
                     </svg>
                   </div>
                   
-                  <div className={`text-stone-700 font-medium mb-3 leading-relaxed ${isExpanded ? '' : 'line-clamp-2'}`}>
+                  <div className={`text-stone-700 dark:text-stone-200 font-medium mb-3 leading-relaxed ${isExpanded ? '' : 'line-clamp-2'}`}>
                     {record.situation}
                   </div>
                   
                   <div className="flex flex-wrap gap-1.5 mb-3">
                     {record.emotions.map((emotion, i) => (
-                      <span key={i} className="text-xs bg-warm-200 text-stone-600 px-2.5 py-1 rounded-full">
+                      <span key={i} className="text-xs bg-warm-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300 px-2.5 py-1 rounded-full">
                         {emotion.name} {emotion.intensity}%
                       </span>
                     ))}
                   </div>
 
                   {maxEmotion && hasOutcome && (
-                    <div className="flex items-center gap-3 mb-3 py-2 px-3 bg-stone-50 rounded-lg">
+                    <div className="flex items-center gap-3 mb-3 py-2 px-3 bg-stone-50 dark:bg-stone-700/50 rounded-lg">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] uppercase tracking-wide text-stone-400 font-medium">Before</span>
-                        <span className="text-sm font-semibold text-critical-500">{maxEmotion.intensity}%</span>
+                        <span className="text-[10px] uppercase tracking-wide text-stone-400 dark:text-stone-500 font-medium">Before</span>
+                        <span className="text-sm font-semibold text-critical-500 dark:text-critical-400">{maxEmotion.intensity}%</span>
                       </div>
-                      <svg className="w-4 h-4 text-stone-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg className="w-4 h-4 text-stone-300 dark:text-stone-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] uppercase tracking-wide text-stone-400 font-medium">After</span>
-                        <span className="text-sm font-semibold text-helpful-600">{outcomeIntensity}%</span>
+                        <span className="text-[10px] uppercase tracking-wide text-stone-400 dark:text-stone-500 font-medium">After</span>
+                        <span className="text-sm font-semibold text-helpful-600 dark:text-helpful-500">{outcomeIntensity}%</span>
                       </div>
                       {improvement > 0 && (
-                        <span className="ml-auto text-xs font-medium text-stone-500">
+                        <span className="ml-auto text-xs font-medium text-stone-500 dark:text-stone-400">
                           {improvement}% better
                         </span>
                       )}
@@ -248,12 +248,12 @@ export function HomeView() {
 
                   <div className="flex flex-wrap gap-x-2 gap-y-1">
                     {(isExpanded ? record.distortions : record.distortions.slice(0, 3)).map((id) => (
-                      <span key={id} className="text-xs text-sage-500">
+                      <span key={id} className="text-xs text-sage-500 dark:text-sage-400">
                         {getDistortionName(id)}
                       </span>
                     ))}
                     {!isExpanded && record.distortions.length > 3 && (
-                      <span className="text-xs text-stone-400">
+                      <span className="text-xs text-stone-400 dark:text-stone-500">
                         +{record.distortions.length - 3} more
                       </span>
                     )}
@@ -264,26 +264,26 @@ export function HomeView() {
                   <div className="px-5 pb-5 space-y-4">
                     <div className="md:grid md:grid-cols-2 md:gap-6">
                       {record.automaticThoughts && (
-                        <div className="pt-4 border-t border-stone-100 md:border-t-0 md:pt-0">
-                          <h4 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-2">Automatic thoughts</h4>
-                          <p className="text-stone-700 text-sm leading-relaxed whitespace-pre-wrap">{record.automaticThoughts}</p>
+                        <div className="pt-4 border-t border-stone-100 dark:border-stone-700 md:border-t-0 md:pt-0">
+                          <h4 className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-2">Automatic thoughts</h4>
+                          <p className="text-stone-700 dark:text-stone-300 text-sm leading-relaxed whitespace-pre-wrap">{record.automaticThoughts}</p>
                         </div>
                       )}
                       
                       {record.rationalResponse && (
-                        <div className="pt-4 border-t border-stone-100 md:border-t-0 md:pt-0">
-                          <h4 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-2">Rational response</h4>
-                          <p className="text-stone-700 text-sm leading-relaxed whitespace-pre-wrap">{record.rationalResponse}</p>
+                        <div className="pt-4 border-t border-stone-100 dark:border-stone-700 md:border-t-0 md:pt-0">
+                          <h4 className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-2">Rational response</h4>
+                          <p className="text-stone-700 dark:text-stone-300 text-sm leading-relaxed whitespace-pre-wrap">{record.rationalResponse}</p>
                         </div>
                       )}
                     </div>
 
                     {record.outcomeEmotions.length > 0 && record.outcomeEmotions[0].name && (
-                      <div className="pt-4 border-t border-stone-100">
-                        <h4 className="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-2">Outcome emotions</h4>
+                      <div className="pt-4 border-t border-stone-100 dark:border-stone-700">
+                        <h4 className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-2">Outcome emotions</h4>
                         <div className="flex flex-wrap gap-1.5">
                           {record.outcomeEmotions.map((emotion, i) => (
-                            <span key={i} className="text-xs bg-stone-100 text-stone-600 px-2.5 py-1 rounded-full">
+                            <span key={i} className="text-xs bg-stone-100 dark:bg-stone-700 text-stone-600 dark:text-stone-300 px-2.5 py-1 rounded-full">
                               {emotion.name} {emotion.intensity}%
                             </span>
                           ))}
@@ -291,7 +291,7 @@ export function HomeView() {
                       </div>
                     )}
 
-                    <div className="flex gap-2 pt-4 border-t border-stone-100">
+                    <div className="flex gap-2 pt-4 border-t border-stone-100 dark:border-stone-700">
                       <button
                         onClick={(e) => {
                           e.stopPropagation()
@@ -315,7 +315,7 @@ export function HomeView() {
                           e.stopPropagation()
                           setShowDeleteConfirm(record.id)
                         }}
-                        className="px-4 py-2.5 text-sm font-medium text-critical-500 hover:text-critical-600 hover:bg-critical-50 rounded-xl transition-colors"
+                        className="px-4 py-2.5 text-sm font-medium text-critical-500 dark:text-critical-400 hover:text-critical-600 dark:hover:text-critical-300 hover:bg-critical-50 dark:hover:bg-critical-500/10 rounded-xl transition-colors"
                       >
                         Delete
                       </button>

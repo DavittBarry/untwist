@@ -95,7 +95,7 @@ export function Navigation() {
   return (
     <>
       {/* Mobile bottom navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-stone-200/80 px-2 py-2 z-50">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-stone-800/95 backdrop-blur-sm border-t border-stone-200/80 dark:border-stone-700/80 px-2 py-2 z-50">
         <div className="max-w-lg mx-auto flex justify-around">
           {navItems.map((item) => (
             <button
@@ -103,8 +103,8 @@ export function Navigation() {
               onClick={() => handleNavClick(item.id)}
               className={`flex flex-col items-center py-2 px-3 rounded-xl transition-all duration-200 focus:ring-0 focus:ring-offset-0 ${
                 isActive(item.id)
-                  ? 'text-sage-600'
-                  : 'text-stone-400 hover:text-stone-600'
+                  ? 'text-sage-600 dark:text-sage-400'
+                  : 'text-stone-400 hover:text-stone-600 dark:text-stone-500 dark:hover:text-stone-300'
               }`}
             >
               <item.Icon className="w-5 h-5" />
@@ -117,13 +117,13 @@ export function Navigation() {
       </nav>
 
       {/* Desktop sidebar navigation */}
-      <nav className="hidden lg:flex fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-stone-200 flex-col z-50">
-        <div className="p-6 border-b border-stone-100">
+      <nav className="hidden lg:flex fixed left-0 top-0 bottom-0 w-64 bg-white dark:bg-stone-800 border-r border-stone-200 dark:border-stone-700 flex-col z-50">
+        <div className="p-6 border-b border-stone-100 dark:border-stone-700">
           <div className="flex items-center">
             <AppLogo className="w-8 h-8 flex-shrink-0" />
             <div className="flex-1 text-center pr-8">
-              <h1 className="text-xl font-semibold text-sage-700">Untwist</h1>
-              <p className="text-xs text-stone-400">CBT thought journal</p>
+              <h1 className="text-xl font-semibold text-sage-700 dark:text-sage-400">Untwist</h1>
+              <p className="text-xs text-stone-400 dark:text-stone-500">CBT thought journal</p>
             </div>
           </div>
         </div>
@@ -135,8 +135,8 @@ export function Navigation() {
               onClick={() => handleNavClick(item.id)}
               className={`w-full flex items-center gap-3 py-3 px-4 rounded-xl transition-all duration-200 mb-1 focus:ring-0 focus:ring-offset-0 ${
                 isActive(item.id)
-                  ? 'bg-sage-50 text-sage-700'
-                  : 'text-stone-500 hover:bg-stone-50 hover:text-stone-700'
+                  ? 'bg-sage-50 dark:bg-sage-900/30 text-sage-700 dark:text-sage-400'
+                  : 'text-stone-500 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-700/50 hover:text-stone-700 dark:hover:text-stone-200'
               }`}
             >
               <item.Icon className="w-5 h-5" />
@@ -147,8 +147,8 @@ export function Navigation() {
           ))}
         </div>
 
-        <div className="p-4 border-t border-stone-100">
-          <p className="text-xs text-stone-400 text-center">
+        <div className="p-4 border-t border-stone-100 dark:border-stone-700">
+          <p className="text-xs text-stone-400 dark:text-stone-500 text-center">
             Based on "Feeling Good" by David D. Burns
           </p>
         </div>

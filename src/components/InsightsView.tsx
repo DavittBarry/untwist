@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useAppStore } from '@/stores/appStore'
+import { useThemeStore } from '@/stores/themeStore'
 import { COGNITIVE_DISTORTIONS, getDepressionLevel } from '@/types'
 import { format, parseISO, getDay } from 'date-fns'
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, BarChart, Bar } from 'recharts'
@@ -9,6 +10,17 @@ const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export function InsightsView() {
   const { thoughtRecords, depressionChecklists, gratitudeEntries } = useAppStore()
+  const { resolvedTheme } = useThemeStore()
+  const isDark = resolvedTheme === 'dark'
+
+  const chartColors = {
+    axis: isDark ? '#78716c' : '#a8a29e',
+    line: isDark ? '#7d8f7d' : '#617161',
+    bar: isDark ? '#7d8f7d' : '#7d8f7d',
+    tooltipBg: isDark ? '#292524' : '#fff',
+    tooltipBorder: isDark ? '#44403c' : '#e7e5e4',
+    tooltipText: isDark ? '#fafaf9' : '#44403c'
+  }
 
   const stats = useMemo(() => {
     if (thoughtRecords.length === 0) return null
@@ -100,14 +112,14 @@ export function InsightsView() {
           description="This section shows patterns in your thought records, depression checklist scores, and gratitude practice. As you add more data, you'll see trends emerge that can help you understand your thinking patterns and track your progress over time."
         />
         <div className="text-center py-16">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-sage-100 flex items-center justify-center">
-            <svg className="w-8 h-8 text-sage-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-sage-100 dark:bg-sage-900/30 flex items-center justify-center">
+            <svg className="w-8 h-8 text-sage-400 dark:text-sage-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 16v-4" />
               <path d="M12 8h.01" />
             </svg>
           </div>
-          <p className="text-stone-500">
+          <p className="text-stone-500 dark:text-stone-400">
             Add some records to see your patterns.
           </p>
         </div>
@@ -128,8 +140,8 @@ export function InsightsView() {
             <div className="card p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="text-3xl font-semibold text-stone-800">{stats.totalRecords}</div>
-                  <div className="text-sm text-stone-500 mt-1">Thought records</div>
+                  <div className="text-3xl font-semibold text-stone-800 dark:text-stone-100">{stats.totalRecords}</div>
+                  <div className="text-sm text-stone-500 dark:text-stone-400 mt-1">Thought records</div>
                 </div>
                 <StatInfoButton
                   title="Thought records"
@@ -140,10 +152,10 @@ export function InsightsView() {
             <div className="card p-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="text-3xl font-semibold text-helpful-500">
+                  <div className="text-3xl font-semibold text-helpful-500 dark:text-helpful-500">
                     {stats.averageImprovement > 0 ? `↓${stats.averageImprovement}%` : '—'}
                   </div>
-                  <div className="text-sm text-stone-500 mt-1">Avg improvement</div>
+                  <div className="text-sm text-stone-500 dark:text-stone-400 mt-1">Avg improvement</div>
                 </div>
                 <StatInfoButton
                   title="Average improvement"
@@ -154,12 +166,12 @@ export function InsightsView() {
             {gratitudeStats && (
               <>
                 <div className="card p-5">
-                  <div className="text-3xl font-semibold text-stone-800">{gratitudeStats.totalDays}</div>
-                  <div className="text-sm text-stone-500 mt-1">Gratitude days</div>
+                  <div className="text-3xl font-semibold text-stone-800 dark:text-stone-100">{gratitudeStats.totalDays}</div>
+                  <div className="text-sm text-stone-500 dark:text-stone-400 mt-1">Gratitude days</div>
                 </div>
                 <div className="card p-5">
-                  <div className="text-3xl font-semibold text-stone-800">{gratitudeStats.avgPerDay}</div>
-                  <div className="text-sm text-stone-500 mt-1">Avg items/day</div>
+                  <div className="text-3xl font-semibold text-stone-800 dark:text-stone-100">{gratitudeStats.avgPerDay}</div>
+                  <div className="text-sm text-stone-500 dark:text-stone-400 mt-1">Avg items/day</div>
                 </div>
               </>
             )}
@@ -168,7 +180,7 @@ export function InsightsView() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="card p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-base font-semibold text-stone-700">Top cognitive distortions</h2>
+                <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300">Top cognitive distortions</h2>
                 <StatInfoButton
                   title="Top cognitive distortions"
                   content="These are the thinking patterns that appear most often in your thought records. Knowing your most common distortions helps you recognize them faster in daily life and challenge them more effectively."
@@ -177,9 +189,9 @@ export function InsightsView() {
               <div className="space-y-3">
                 {stats.topDistortions.map((d, i) => (
                   <div key={d.id} className="flex items-center gap-3">
-                    <div className="text-stone-400 w-4 text-sm">{i + 1}.</div>
-                    <div className="flex-1 text-stone-700">{d.name}</div>
-                    <div className="text-sage-600 font-medium">{d.count}</div>
+                    <div className="text-stone-400 dark:text-stone-500 w-4 text-sm">{i + 1}.</div>
+                    <div className="flex-1 text-stone-700 dark:text-stone-300">{d.name}</div>
+                    <div className="text-sage-600 dark:text-sage-400 font-medium">{d.count}</div>
                   </div>
                 ))}
               </div>
@@ -187,7 +199,7 @@ export function InsightsView() {
 
             <div className="card p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-base font-semibold text-stone-700">Most frequent emotions</h2>
+                <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300">Most frequent emotions</h2>
                 <StatInfoButton
                   title="Most frequent emotions"
                   content="The emotions that appear most often in your thought records. Understanding which emotions you experience most frequently can help you anticipate triggers and develop targeted coping strategies."
@@ -195,13 +207,13 @@ export function InsightsView() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {stats.topEmotions.map(([emotion, count]) => (
-                  <span key={emotion} className="bg-warm-200 text-stone-600 px-3 py-1.5 rounded-full text-sm">
+                  <span key={emotion} className="bg-warm-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300 px-3 py-1.5 rounded-full text-sm">
                     {emotion} ({count})
                   </span>
                 ))}
               </div>
               {stats.topEmotions.length === 0 && (
-                <p className="text-stone-400 text-sm">No emotions recorded yet</p>
+                <p className="text-stone-400 dark:text-stone-500 text-sm">No emotions recorded yet</p>
               )}
             </div>
           </div>
@@ -209,7 +221,7 @@ export function InsightsView() {
           {depressionTrend.length > 0 && (
             <div className="card p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-base font-semibold text-stone-700">Depression score trend</h2>
+                <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300">Depression score trend</h2>
                 <StatInfoButton
                   title="Depression score trend"
                   content="Shows how your Burns Depression Checklist scores change over time. A downward trend indicates improvement. Look for overall direction rather than individual points, as scores naturally fluctuate day to day."
@@ -218,24 +230,24 @@ export function InsightsView() {
               <div className="h-48 sm:h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={depressionTrend}>
-                    <XAxis dataKey="date" stroke="#a8a29e" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#a8a29e" fontSize={12} domain={[0, 100]} tickLine={false} axisLine={false} />
+                    <XAxis dataKey="date" stroke={chartColors.axis} fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke={chartColors.axis} fontSize={12} domain={[0, 100]} tickLine={false} axisLine={false} />
                     <Tooltip 
                       contentStyle={{ 
-                        backgroundColor: '#fff', 
-                        border: '1px solid #e7e5e4',
+                        backgroundColor: chartColors.tooltipBg, 
+                        border: `1px solid ${chartColors.tooltipBorder}`,
                         borderRadius: '12px',
                         boxShadow: '0 4px 12px -2px rgba(0, 0, 0, 0.06)'
                       }}
-                      labelStyle={{ color: '#44403c' }}
+                      labelStyle={{ color: chartColors.tooltipText }}
                     />
                     <Line 
                       type="monotone" 
                       dataKey="score" 
-                      stroke="#617161" 
+                      stroke={chartColors.line} 
                       strokeWidth={2}
-                      dot={{ fill: '#617161', strokeWidth: 0, r: 4 }}
-                      activeDot={{ fill: '#617161', strokeWidth: 0, r: 6 }}
+                      dot={{ fill: chartColors.line, strokeWidth: 0, r: 4 }}
+                      activeDot={{ fill: chartColors.line, strokeWidth: 0, r: 6 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -245,7 +257,7 @@ export function InsightsView() {
 
           <div className="card p-5">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base font-semibold text-stone-700">Records by day of week</h2>
+              <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300">Records by day of week</h2>
               <StatInfoButton
                 title="Records by day of week"
                 content="Shows which days you tend to write thought records. This can reveal patterns, like if certain days are more emotionally difficult for you or when you're most likely to practice CBT techniques."
@@ -254,9 +266,9 @@ export function InsightsView() {
             <div className="h-40 sm:h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats.dayOfWeekData}>
-                  <XAxis dataKey="day" stroke="#a8a29e" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#a8a29e" fontSize={12} allowDecimals={false} tickLine={false} axisLine={false} />
-                  <Bar dataKey="count" fill="#7d8f7d" radius={[6, 6, 0, 0]} />
+                  <XAxis dataKey="day" stroke={chartColors.axis} fontSize={12} tickLine={false} axisLine={false} />
+                  <YAxis stroke={chartColors.axis} fontSize={12} allowDecimals={false} tickLine={false} axisLine={false} />
+                  <Bar dataKey="count" fill={chartColors.bar} radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -267,7 +279,7 @@ export function InsightsView() {
       {!stats && gratitudeStats && (
         <div className="card p-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-base font-semibold text-stone-700">Gratitude practice</h2>
+            <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300">Gratitude practice</h2>
             <StatInfoButton
               title="Gratitude practice"
               content="Tracks your gratitude journaling consistency. Research shows that writing 3-5 gratitude items daily for 2+ weeks can measurably increase happiness and reduce depression symptoms."
@@ -275,16 +287,16 @@ export function InsightsView() {
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-semibold text-stone-800">{gratitudeStats.totalDays}</div>
-              <div className="text-xs text-stone-500 mt-1">Days logged</div>
+              <div className="text-2xl font-semibold text-stone-800 dark:text-stone-100">{gratitudeStats.totalDays}</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">Days logged</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-semibold text-stone-800">{gratitudeStats.totalEntries}</div>
-              <div className="text-xs text-stone-500 mt-1">Total items</div>
+              <div className="text-2xl font-semibold text-stone-800 dark:text-stone-100">{gratitudeStats.totalEntries}</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">Total items</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-semibold text-stone-800">{gratitudeStats.avgPerDay}</div>
-              <div className="text-xs text-stone-500 mt-1">Avg per day</div>
+              <div className="text-2xl font-semibold text-stone-800 dark:text-stone-100">{gratitudeStats.avgPerDay}</div>
+              <div className="text-xs text-stone-500 dark:text-stone-400 mt-1">Avg per day</div>
             </div>
           </div>
         </div>
