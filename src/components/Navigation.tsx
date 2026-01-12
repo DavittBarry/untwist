@@ -47,6 +47,20 @@ function SettingsIcon({ className }: { className?: string }) {
   )
 }
 
+function AppLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="16" fill="#617161"/>
+      <g fill="none" stroke="white" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 16c0-4.4 3.6-8 8-8" strokeWidth="2.5" opacity="0.5"/>
+        <path d="M12 16c0-2.2 1.8-4 4-4" strokeWidth="2.5" opacity="0.75"/>
+        <path d="M16 16h10" strokeWidth="2.5"/>
+        <path d="M23 13l3 3-3 3" strokeWidth="2"/>
+      </g>
+    </svg>
+  )
+}
+
 export function Navigation() {
   const { currentView, setView, setSelectedGratitudeId, setSelectedChecklistId, setSelectedRecordId } = useAppStore()
 
@@ -105,8 +119,13 @@ export function Navigation() {
       {/* Desktop sidebar navigation */}
       <nav className="hidden lg:flex fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-stone-200 flex-col z-50">
         <div className="p-6 border-b border-stone-100">
-          <h1 className="text-xl font-semibold text-sage-700">Untwist</h1>
-          <p className="text-xs text-stone-400 mt-1">CBT thought journal</p>
+          <div className="flex items-center">
+            <AppLogo className="w-8 h-8 flex-shrink-0" />
+            <div className="flex-1 text-center pr-8">
+              <h1 className="text-xl font-semibold text-sage-700">Untwist</h1>
+              <p className="text-xs text-stone-400">CBT thought journal</p>
+            </div>
+          </div>
         </div>
         
         <div className="flex-1 py-4 px-3">
