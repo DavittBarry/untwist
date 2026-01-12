@@ -100,7 +100,7 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
         <button
           type="button"
           onClick={() => setView('home')}
-          className="text-stone-500 hover:text-stone-700 flex items-center gap-1"
+          className="text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 flex items-center gap-1"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -203,13 +203,13 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
                       onChange={(e) => updateEmotion(index, 'intensity', parseInt(e.target.value) || 0, false)}
                       className="input-field w-20 text-center tabular-nums"
                     />
-                    <span className="text-stone-400 text-sm w-4">%</span>
+                    <span className="text-stone-400 dark:text-stone-500 text-sm w-4">%</span>
                   </div>
                   {emotions.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeEmotion(index, false)}
-                      className="text-stone-400 hover:text-critical-500 p-1 transition-colors flex-shrink-0"
+                      className="text-stone-400 dark:text-stone-500 hover:text-critical-500 dark:hover:text-critical-400 p-1 transition-colors flex-shrink-0"
                     >
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <line x1="18" y1="6" x2="6" y2="18" />
@@ -223,7 +223,7 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
             <button
               type="button"
               onClick={() => addEmotion(false)}
-              className="text-sage-600 hover:text-sage-700 text-sm font-medium mt-3"
+              className="text-sage-600 dark:text-sage-400 hover:text-sage-700 dark:hover:text-sage-300 text-sm font-medium mt-3"
             >
               + Add emotion
             </button>
@@ -272,7 +272,7 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
                   content="Cognitive distortions are patterns of biased thinking that can make situations seem worse than they are. We all use them sometimes. Identifying them helps you see your thoughts more objectively and respond more helpfully."
                 />
               </label>
-              <span className="text-sm text-stone-500">
+              <span className="text-sm text-stone-500 dark:text-stone-400">
                 {distortions.length} selected
               </span>
             </div>
@@ -285,12 +285,12 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
                       onClick={() => toggleDistortion(distortion.id)}
                       className={`w-full text-left p-3.5 rounded-xl border-2 transition-all duration-200 ${
                         distortions.includes(distortion.id)
-                          ? 'bg-sage-50 border-sage-400'
-                          : 'bg-white border-stone-200 hover:border-stone-300'
+                          ? 'bg-sage-50 dark:bg-sage-900/30 border-sage-400 dark:border-sage-600'
+                          : 'bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-600 hover:border-stone-300 dark:hover:border-stone-500'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className={`font-medium text-sm ${distortions.includes(distortion.id) ? 'text-sage-700' : 'text-stone-700'}`}>
+                        <span className={`font-medium text-sm ${distortions.includes(distortion.id) ? 'text-sage-700 dark:text-sage-400' : 'text-stone-700 dark:text-stone-300'}`}>
                           {distortion.id}. {distortion.shortName}
                         </span>
                         <button
@@ -299,7 +299,7 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
                             e.stopPropagation()
                             setExpandedDistortion(expandedDistortion === distortion.id ? null : distortion.id)
                           }}
-                          className="text-stone-400 hover:text-stone-600 p-1"
+                          className="text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 p-1"
                         >
                           <svg 
                             className={`w-4 h-4 transition-transform ${expandedDistortion === distortion.id ? 'rotate-180' : ''}`} 
@@ -314,7 +314,7 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
                       </div>
                     </button>
                     {expandedDistortion === distortion.id && (
-                      <div className="mt-1 ml-4 p-3 bg-stone-50 rounded-lg text-sm text-stone-600 animate-fade-in">
+                      <div className="mt-1 ml-4 p-3 bg-stone-50 dark:bg-stone-700/50 rounded-lg text-sm text-stone-600 dark:text-stone-300 animate-fade-in">
                         {distortion.description}
                       </div>
                     )}
@@ -386,13 +386,13 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
                       onChange={(e) => updateEmotion(index, 'intensity', parseInt(e.target.value) || 0, true)}
                       className="input-field w-20 text-center tabular-nums"
                     />
-                    <span className="text-stone-400 text-sm w-4">%</span>
+                    <span className="text-stone-400 dark:text-stone-500 text-sm w-4">%</span>
                   </div>
                   {outcomeEmotions.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeEmotion(index, true)}
-                      className="text-stone-400 hover:text-critical-500 p-1 transition-colors flex-shrink-0"
+                      className="text-stone-400 dark:text-stone-500 hover:text-critical-500 dark:hover:text-critical-400 p-1 transition-colors flex-shrink-0"
                     >
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                         <line x1="18" y1="6" x2="6" y2="18" />
@@ -406,7 +406,7 @@ export function ThoughtRecordForm({ existingRecord }: Props) {
             <button
               type="button"
               onClick={() => addEmotion(true)}
-              className="text-sage-600 hover:text-sage-700 text-sm font-medium mt-3"
+              className="text-sage-600 dark:text-sage-400 hover:text-sage-700 dark:hover:text-sage-300 text-sm font-medium mt-3"
             >
               + Add emotion
             </button>
