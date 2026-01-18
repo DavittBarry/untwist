@@ -83,7 +83,7 @@ export function Navigation() {
     { id: 'gratitude' as const, label: 'Gratitude', Icon: GratitudeIcon },
     { id: 'checklist' as const, label: 'Checklist', Icon: ChecklistIcon },
     { id: 'insights' as const, label: 'Insights', Icon: InsightsIcon },
-    { id: 'settings' as const, label: 'Settings', Icon: SettingsIcon }
+    { id: 'settings' as const, label: 'Settings & Guide', Icon: SettingsIcon }
   ]
 
   const isActive = (id: string) => {

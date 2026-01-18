@@ -3,6 +3,7 @@ import { useAppStore } from '@/stores/appStore'
 import { useThemeStore } from '@/stores/themeStore'
 import { Navigation } from '@/components/Navigation'
 import { BackupReminder } from '@/components/BackupReminder'
+import { OnboardingFlow } from '@/components/OnboardingFlow'
 import { HomeView } from '@/components/HomeView'
 import { ThoughtRecordForm } from '@/components/ThoughtRecordForm'
 import { ThoughtDetailView } from '@/components/ThoughtDetailView'
@@ -74,6 +75,7 @@ function App() {
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-warm-200 dark:bg-stone-900 text-stone-800 dark:text-stone-100">
+        <OnboardingFlow />
         <Navigation />
         <BackupReminder />
         
