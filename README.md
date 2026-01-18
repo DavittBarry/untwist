@@ -1,6 +1,6 @@
-# Untwist
+# CBTJournal
 
-Untwist your thinking with cognitive behavioral therapy techniques based on "Feeling Good" by David D. Burns, M.D. Track your thoughts, identify cognitive distortions, and monitor your mental health over time.
+Track your thoughts with cognitive behavioral therapy techniques based on "Feeling Good" by David D. Burns, M.D. Identify cognitive distortions using the untwist technique and monitor your mental health over time.
 
 ## Features
 

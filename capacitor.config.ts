@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.untwist.app',
-  appName: 'Untwist',
+  appId: 'com.cbtjournal.app',
+  appName: 'CBTJournal',
   webDir: 'dist',
   server: {
     androidScheme: 'https'

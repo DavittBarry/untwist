@@ -3,7 +3,7 @@ import type { ThoughtRecord, DepressionChecklistEntry, GratitudeEntry } from '@/
 import { logger } from '@/utils/logger'
 import { toast } from '@/stores/toastStore'
 
-interface UntwistDB extends DBSchema {
+interface CBTJournalDB extends DBSchema {
   thoughtRecords: {
     key: string
     value: ThoughtRecord
@@ -21,13 +21,13 @@ interface UntwistDB extends DBSchema {
   }
 }
 
-let dbPromise: Promise<IDBPDatabase<UntwistDB>> | null = null
+let dbPromise: Promise<IDBPDatabase<CBTJournalDB>> | null = null
 
 function getDB() {
   if (!dbPromise) {
     logger.debug('DB', 'Initializing IndexedDB connection')
     
-    dbPromise = openDB<UntwistDB>('untwist', 2, {
+    dbPromise = openDB<CBTJournalDB>('cbtjournal', 2, {
       upgrade(db, oldVersion, newVersion) {
         logger.info('DB', 'Upgrading database', { oldVersion, newVersion })
         

@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Untwist - CBT Thought Journal',
-        short_name: 'Untwist',
-        description: 'Untwist your thinking with cognitive behavioral therapy techniques based on Feeling Good by David D. Burns',
+        name: 'CBTJournal - CBT Thought Journal',
+        short_name: 'CBTJournal',
+        description: 'Track your thoughts with cognitive behavioral therapy techniques based on Feeling Good by David D. Burns',
         theme_color: '#617161',
         background_color: '#f3ede7',
         display: 'standalone',

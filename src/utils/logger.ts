@@ -9,7 +9,7 @@ interface LogEntry {
   stack?: string
 }
 
-const LOG_STORAGE_KEY = 'untwist_logs'
+const LOG_STORAGE_KEY = 'cbtjournal_logs'
 const MAX_LOGS = 500
 
 class Logger {

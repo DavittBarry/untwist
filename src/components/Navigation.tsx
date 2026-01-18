@@ -160,8 +160,8 @@ export function Navigation() {
           <div className="flex items-center">
             <AppLogo className="w-8 h-8 flex-shrink-0" />
             <div className="flex-1 text-center pr-8">
-              <h1 className="text-xl font-semibold text-sage-700 dark:text-sage-400">Untwist</h1>
-              <p className="text-xs text-stone-400 dark:text-stone-500">CBT thought journal</p>
+              <h1 className="text-xl font-semibold text-sage-700 dark:text-sage-400">CBTJournal</h1>
+              <p className="text-xs text-stone-400 dark:text-stone-500">Track your thoughts</p>
             </div>
           </div>
         </div>

@@ -32,7 +32,7 @@ export function SettingsView() {
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `untwist-export-${new Date().toISOString().split('T')[0]}.json`
+      a.download = `cbtjournal-export-${new Date().toISOString().split('T')[0]}.json`
       a.click()
       URL.revokeObjectURL(url)
       
