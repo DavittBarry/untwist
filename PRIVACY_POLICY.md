@@ -68,7 +68,7 @@ We may update this privacy policy from time to time. Any changes will be posted 
 ## Contact
 
 For questions about this privacy policy or Untwist, please contact:
-[Your contact email]
+davittbarry333@gmail.com
 
 ## Your Rights
 
