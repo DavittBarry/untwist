@@ -16,6 +16,7 @@ export function SettingsView() {
   const [importStep, setImportStep] = useState<ImportStep>('idle')
   const [pendingImportData, setPendingImportData] = useState<string | null>(null)
   const [showDevTools, setShowDevTools] = useState(false)
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
 
   const hasExistingData = thoughtRecords.length > 0 || depressionChecklists.length > 0 || gratitudeEntries.length > 0
   const isDev = import.meta.env.DEV
@@ -183,7 +184,7 @@ export function SettingsView() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `untwist-logs-${new Date().toISOString().split('T')[0]}.json`
+    a.download = `cbtjournal-logs-${new Date().toISOString().split('T')[0]}.json`
     a.click()
     URL.revokeObjectURL(url)
     toast.success('Logs exported')
@@ -199,7 +200,7 @@ export function SettingsView() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-semibold text-stone-800 dark:text-stone-100 mb-8 text-center">Settings</h1>
+      <h1 className="text-2xl font-semibold text-stone-800 dark:text-stone-100 mb-8 text-center">Settings & Guide</h1>
 
       {importStep === 'choose-mode' && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -259,6 +260,112 @@ export function SettingsView() {
                 className="w-full text-stone-500 hover:text-stone-700 dark:text-stone-400 dark:hover:text-stone-200 py-2 text-sm font-medium"
               >
                 Go back
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showPrivacyPolicy && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="card p-6 max-w-2xl w-full max-h-[90vh] flex flex-col">
+            <div className="flex items-start justify-between mb-4 flex-shrink-0">
+              <h3 className="text-lg font-semibold text-stone-800 dark:text-stone-100">Privacy policy</h3>
+              <button
+                onClick={() => setShowPrivacyPolicy(false)}
+                className="text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="overflow-y-auto flex-1 pr-2">
+              <div className="prose prose-sm dark:prose-invert max-w-none text-stone-600 dark:text-stone-300">
+              <p className="text-xs text-stone-400 dark:text-stone-500 mb-4">Last updated: January 18, 2026</p>
+              
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Overview</h4>
+              <p className="text-sm leading-relaxed mb-4">CBTJournal is a cognitive behavioral therapy (CBT) thought journal designed to help users track and manage their thoughts, emotions, and mental wellness. Your privacy is our top priority.</p>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Data storage</h4>
+              <p className="text-sm leading-relaxed mb-2"><strong>All your data stays on your device.</strong> CBTJournal stores all information locally in your device's browser storage (IndexedDB). We do not:</p>
+              <ul className="text-sm space-y-1 mb-4">
+                <li>Collect any personal information.</li>
+                <li>Transmit any data to external servers.</li>
+                <li>Track your usage.</li>
+                <li>Use analytics or cookies.</li>
+                <li>Share your data with third parties.</li>
+              </ul>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">What data is stored</h4>
+              <p className="text-sm leading-relaxed mb-2">The following information is stored locally on your device only:</p>
+              <ul className="text-sm space-y-1 mb-4">
+                <li>Thought records (situations, emotions, cognitive distortions, rational responses).</li>
+                <li>Gratitude journal entries.</li>
+                <li>Depression checklist responses.</li>
+                <li>User preferences (theme, settings).</li>
+                <li>Backup timestamps.</li>
+              </ul>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Data control</h4>
+              <p className="text-sm leading-relaxed mb-2">You have complete control over your data:</p>
+              <ul className="text-sm space-y-1 mb-4">
+                <li><strong>Export:</strong> You can export all your data as a JSON file at any time.</li>
+                <li><strong>Import:</strong> You can import previously exported data.</li>
+                <li><strong>Delete:</strong> You can delete individual entries or clear all data.</li>
+                <li><strong>Backup:</strong> You are responsible for backing up your data.</li>
+              </ul>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Auto-save feature (desktop only)</h4>
+              <p className="text-sm leading-relaxed mb-4">On desktop browsers (Chrome/Edge), you may optionally enable an auto-save feature that saves your data to a file location you choose on your computer. This file remains entirely under your control on your local filesystem.</p>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Data loss</h4>
+              <p className="text-sm leading-relaxed mb-2">Since all data is stored locally:</p>
+              <ul className="text-sm space-y-1 mb-4">
+                <li>Clearing your browser cache/data will delete all records.</li>
+                <li>Uninstalling the app will delete all data.</li>
+                <li>Switching devices will not transfer your data.</li>
+                <li>We cannot recover lost data.</li>
+              </ul>
+              <p className="text-sm font-medium mb-4">We strongly recommend exporting backups regularly.</p>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Third-party services</h4>
+              <p className="text-sm leading-relaxed mb-4">CBTJournal does not use any third-party services, analytics, or tracking tools.</p>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Children's privacy</h4>
+              <p className="text-sm leading-relaxed mb-4">CBTJournal does not knowingly collect information from anyone under the age of 13. The app is designed for adults (18+) or use under parental guidance.</p>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Medical disclaimer</h4>
+              <p className="text-sm leading-relaxed mb-2">CBTJournal is not a substitute for professional mental health care. If you are experiencing a mental health crisis, please contact:</p>
+              <ul className="text-sm space-y-1 mb-4">
+                <li>Emergency services (911 in US).</li>
+                <li>National Suicide Prevention Lifeline: 1-800-273-8255.</li>
+                <li>Crisis Text Line: Text HOME to 741741.</li>
+              </ul>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Contact</h4>
+              <p className="text-sm leading-relaxed mb-4">For questions about this privacy policy or CBTJournal, please contact: davittbarry333@gmail.com</p>
+
+              <h4 className="text-stone-800 dark:text-stone-100 font-semibold mt-4 mb-2">Your rights</h4>
+              <p className="text-sm leading-relaxed mb-4">Depending on your location, you may have rights under data protection laws such as GDPR or CCPA. Since we don't collect any data, these rights automatically apply - you have full control and ownership of all your data.</p>
+
+              <div className="bg-stone-50 dark:bg-stone-800 rounded-lg p-4 mt-6">
+                <p className="text-sm font-medium text-stone-800 dark:text-stone-100 mb-2">By using CBTJournal, you acknowledge that:</p>
+                <ul className="text-sm space-y-1">
+                  <li>All data is stored locally on your device.</li>
+                  <li>You are responsible for backing up your data.</li>
+                  <li>We cannot recover data if it is lost.</li>
+                  <li>The app is for informational purposes and is not medical advice.</li>
+                </ul>
+              </div>
+            </div>
+            </div>
+            <div className="mt-4 flex-shrink-0">
+              <button
+                onClick={() => setShowPrivacyPolicy(false)}
+                className="btn-primary w-full"
+              >
+                Close
               </button>
             </div>
           </div>
@@ -440,13 +547,94 @@ export function SettingsView() {
         <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300 mb-4">About</h2>
         <div className="card p-5">
           <p className="text-stone-600 dark:text-stone-300 mb-3 leading-relaxed">
-            Untwist is based on the cognitive behavioral therapy techniques from 
+            CBTJournal is based on the cognitive behavioral therapy techniques from 
             "Feeling Good" by David D. Burns, M.D.
           </p>
-          <p className="text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
+          <p className="text-stone-500 dark:text-stone-400 text-sm leading-relaxed mb-3">
             This app is not a replacement for professional mental health care. 
             If you're struggling, please reach out to a mental health professional.
           </p>
+          <button
+            onClick={() => setShowPrivacyPolicy(true)}
+            className="text-sm text-sage-600 dark:text-sage-400 hover:text-sage-700 dark:hover:text-sage-300 underline"
+          >
+            Privacy policy
+          </button>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300 mb-4">Privacy & data</h2>
+        <div className="card p-5 space-y-3">
+          <div className="text-stone-600 dark:text-stone-300 leading-relaxed space-y-3">
+            <p className="font-medium text-stone-700 dark:text-stone-200">Your data stays on your device.</p>
+            <p className="text-sm">All thought records, gratitude entries, and checklist responses are stored locally in your browser using IndexedDB. Nothing is sent to any server.</p>
+            <p className="text-sm">This means you have complete control and privacy, but you're also responsible for backing up your data regularly.</p>
+          </div>
+          
+          <div className="pt-3 border-t border-stone-100 dark:border-stone-700">
+            <h3 className="text-sm font-medium text-stone-700 dark:text-stone-200 mb-2">What gets stored</h3>
+            <ul className="text-sm text-stone-600 dark:text-stone-300 space-y-1">
+              <li>• Your thought records and responses.</li>
+              <li>• Gratitude journal entries.</li>
+              <li>• Depression checklist scores.</li>
+              <li>• App preferences (theme, settings).</li>
+            </ul>
+          </div>
+
+          <div className="pt-3 border-t border-stone-100 dark:border-stone-700">
+            <h3 className="text-sm font-medium text-stone-700 dark:text-stone-200 mb-2">What doesn't happen</h3>
+            <ul className="text-sm text-stone-600 dark:text-stone-300 space-y-1">
+              <li>• No analytics or tracking.</li>
+              <li>• No cloud sync or external servers.</li>
+              <li>• No data collection by third parties.</li>
+            </ul>
+          </div>
+
+          <div className="pt-3 border-t border-stone-100 dark:border-stone-700 bg-amber-50 dark:bg-amber-900/20 -mx-5 -mb-5 p-5 rounded-b-xl">
+            <div className="flex items-start gap-2">
+              <svg className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <div className="text-sm text-amber-800 dark:text-amber-200">
+                <p className="font-medium mb-1">Data can be lost</p>
+                <p>Clearing your browser data or uninstalling the app will delete everything. Export backups regularly to protect your work.</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowPrivacyPolicy(true)}
+              className="mt-4 text-sm text-stone-600 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 underline"
+            >
+              Read full privacy policy
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="text-base font-semibold text-stone-700 dark:text-stone-300 mb-4">Guide</h2>
+        <div className="card p-5 space-y-4">
+          <div>
+            <h3 className="text-sm font-medium text-stone-700 dark:text-stone-200 mb-2">Thought records</h3>
+            <p className="text-sm text-stone-600 dark:text-stone-300">When you notice negative emotions, record the situation, identify your automatic thoughts, spot cognitive distortions, and develop balanced responses.</p>
+          </div>
+          
+          <div className="pt-3 border-t border-stone-100 dark:border-stone-700">
+            <h3 className="text-sm font-medium text-stone-700 dark:text-stone-200 mb-2">Gratitude journal</h3>
+            <p className="text-sm text-stone-600 dark:text-stone-300">Daily gratitude practice. Note three things you're grateful for to build positive thought patterns over time.</p>
+          </div>
+
+          <div className="pt-3 border-t border-stone-100 dark:border-stone-700">
+            <h3 className="text-sm font-medium text-stone-700 dark:text-stone-200 mb-2">Depression checklist</h3>
+            <p className="text-sm text-stone-600 dark:text-stone-300">Track your mood with the Burns Depression Checklist. Regular tracking helps you spot patterns and measure progress.</p>
+          </div>
+
+          <div className="pt-3 border-t border-stone-100 dark:border-stone-700">
+            <h3 className="text-sm font-medium text-stone-700 dark:text-stone-200 mb-2">Insights</h3>
+            <p className="text-sm text-stone-600 dark:text-stone-300">After you've created a few entries, the Insights page shows visual charts and statistics. Track emotion trends over time, see which cognitive distortions appear most often, and monitor your depression checklist scores. The more data you add, the more useful these patterns become for understanding your mental health journey.</p>
+          </div>
         </div>
       </section>
 
