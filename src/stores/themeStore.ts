@@ -9,7 +9,7 @@ interface ThemeState {
   initTheme: () => void
 }
 
-const STORAGE_KEY = 'untwist-theme'
+const STORAGE_KEY = 'cbtjournal-theme'
 
 function getSystemTheme(): 'light' | 'dark' {
   if (typeof window === 'undefined') return 'light'

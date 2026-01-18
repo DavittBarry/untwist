@@ -53,7 +53,7 @@ export const useBackupStore = create<BackupState>()(
       }
     }),
     {
-      name: 'untwist-backup-store',
+      name: 'cbtjournal-backup-store',
       partialize: (state) => ({
         lastBackupDate: state.lastBackupDate,
         totalEntriesAtLastBackup: state.totalEntriesAtLastBackup,

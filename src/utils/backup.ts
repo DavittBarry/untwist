@@ -10,7 +10,7 @@ export const downloadBackup = async (jsonData: string): Promise<void> => {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = `untwist-backup-${new Date().toISOString().split('T')[0]}.json`
+  a.download = `cbtjournal-backup-${new Date().toISOString().split('T')[0]}.json`
   document.body.appendChild(a)
   a.click()
   document.body.removeChild(a)
@@ -25,7 +25,7 @@ export const setupAutoSave = async (): Promise<FileSystemFileHandle | null> => {
 
   try {
     const handle = await (window as any).showSaveFilePicker({
-      suggestedName: 'untwist-data.json',
+      suggestedName: 'cbtjournal-data.json',
       types: [
         {
           description: 'JSON Files',

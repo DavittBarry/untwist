@@ -23,7 +23,7 @@ window.addEventListener('unhandledrejection', (event) => {
 })
 
 if (import.meta.env.DEV) {
-  (window as unknown as Record<string, unknown>).__UNTWIST_DEBUG__ = {
+  (window as unknown as Record<string, unknown>).__CBTJOURNAL_DEBUG__ = {
     logger,
     getLogs: () => logger.getLogs(),
     getErrors: () => logger.getRecentErrors(),
@@ -36,11 +36,11 @@ if (import.meta.env.DEV) {
   }
   
   console.log(
-    '%c🧠 Untwist Debug Mode',
+    '%c🧠 CBTJournal Debug Mode',
     'color: #617161; font-size: 14px; font-weight: bold;'
   )
   console.log(
-    '%cAccess debug tools via window.__UNTWIST_DEBUG__',
+    '%cAccess debug tools via window.__CBTJOURNAL_DEBUG__',
     'color: #78716c; font-size: 12px;'
   )
 }
